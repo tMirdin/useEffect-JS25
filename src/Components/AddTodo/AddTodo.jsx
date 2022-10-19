@@ -1,16 +1,36 @@
 import React, { useState } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddTodo = ({ handleTask }) => {
   const [inpTask, setInpTask] = useState("");
   //   console.log(inpTask);
   //   console.log(Date.now());
+
+  // state <==== setState ====> React
+
   function handleAdd() {
+    if (!inpTask.trim()) {
+      // alert("Заполните поле");
+      toast.error("Заполните поле", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
     let newTask = {
       task: inpTask,
       id: Date.now(),
     };
     handleTask(newTask);
+    setInpTask("");
   }
   return (
     <>
@@ -26,6 +46,18 @@ const AddTodo = ({ handleTask }) => {
           Add
         </Button>
       </InputGroup>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+        theme="light"
+      />
     </>
   );
 };
