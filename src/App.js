@@ -9,7 +9,7 @@ const App = () => {
   const [taskArr, setTaskArr] = useState([]);
   const [show, setShow] = useState(false);
   const [oneEditTask, setOneEditTask] = useState({});
-  console.log(oneEditTask);
+  // console.log(oneEditTask);
 
   function handleTask(objTask) {
     let newTodo = [...taskArr];
@@ -29,6 +29,20 @@ const App = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  // editObj = {task: "реальный объект измененный", id: 1235654635}
+
+  function saveEditedTask(editObj) {
+    let newEditedTaskArr = taskArr.map((item) => {
+      if (item.id === editObj.id) {
+        return editObj;
+      } else {
+        return item;
+      }
+    });
+    setTaskArr(newEditedTaskArr);
+  }
+  // saveEditedTask();
+
   return (
     <div>
       <NavScrollExample />
@@ -41,7 +55,14 @@ const App = () => {
         handleShow={handleShow}
         setOneEditTask={setOneEditTask}
       />
-      <UpdateTodo handleClose={handleClose} show={show} />
+      {show ? (
+        <UpdateTodo
+          handleClose={handleClose}
+          show={show}
+          oneEditTask={oneEditTask}
+          saveEditedTask={saveEditedTask}
+        />
+      ) : null}
     </div>
   );
 };
