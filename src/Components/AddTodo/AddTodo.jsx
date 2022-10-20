@@ -5,14 +5,11 @@ import "react-toastify/dist/ReactToastify.css";
 
 const AddTodo = ({ handleTask }) => {
   const [inpTask, setInpTask] = useState("");
-  //   console.log(inpTask);
-  //   console.log(Date.now());
 
   // state <==== setState ====> React
 
   function handleAdd() {
     if (!inpTask.trim()) {
-      // alert("Заполните поле");
       toast.error("Заполните поле", {
         position: "top-center",
         autoClose: 3000,
